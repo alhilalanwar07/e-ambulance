@@ -13,7 +13,9 @@ class Pesanan extends Model
 
     protected $table = 'pesanans';
 
-    protected $fillable = ['pelanggan_id','rumahsakit_id','supir_id','kategori_id','nama_pasien','alamat_jemput','longitude_jemput','latitude_jemput','no_telp', 'keterangan_pasien', 'status'];
+    protected $fillable = ['pelanggan_id','rumahsakit_id','supir_id','kategori_id',
+                'nama_pasien','alamat_jemput','longitude_jemput','latitude_jemput',
+                'no_telp', 'keterangan_pasien', 'status'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

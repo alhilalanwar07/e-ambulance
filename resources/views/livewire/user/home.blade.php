@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="card bg-success text-white mb-3">
-                        <div class="card-header">Pesanan</div>
+                        <div class="card-header">Pelanggan</div>
                         <div class="card-body">
                             <h5 class="card-title">{{ $jumlahPelanggan ?? 0}}</h5>
                             <p class="card-text">Total Pelanggan</p>

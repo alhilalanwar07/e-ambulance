@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Livewire\User\Detail;
 use App\Http\Livewire\User\Home;
-use App\Http\Livewire\User\Kontak;
 use App\Http\Livewire\User\Pesan;
+use App\Http\Livewire\User\Detail;
+use App\Http\Livewire\User\Kontak;
 use App\Http\Livewire\User\Riwayat;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 //Route Hooks - Do not delete//
 Auth::routes();
@@ -22,9 +23,10 @@ Route::middleware('admin')->group(function () {
 // middleware pelanggan
 Route::middleware('pelanggan')->group(function () {
     Route::get('/riwayat', Riwayat::class)->name('user.riwayat');
-    Route::get('/pesan-ambulance', Pesan::class)->name('user.pesan');
     Route::get('/detail-pesan', Detail::class)->name('user.detail');
 });
 
 Route::get('/', Home::class)->name('user.home');
 Route::get('/kontak', Kontak::class)->name('user.kontak');
+Route::get('/pesan-ambulance', Pesan::class)->name('user.pesan');
+Route::post('/get-geolocation', [HomeController::class, 'getGeolocation'])->name('get-geolocation');

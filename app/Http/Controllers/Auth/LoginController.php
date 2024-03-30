@@ -31,7 +31,7 @@ class LoginController extends Controller
         if (auth()->user()->role == 'admin' || auth()->user()->role == 'pimpinan') {
             return '/home';
         } else {
-            return '/';
+            return '/riwayat';
         }
     }
 
