@@ -29,7 +29,8 @@
 							<tr>
 								<td>#</td>
 								<th>Nama</th>
-								<th>Warna</th>
+								<th>Kode Warna</th>
+								<th>Keterangan</th>
 								<td>ACTIONS</td>
 							</tr>
 						</thead>
@@ -38,17 +39,16 @@
 							<tr>
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->nama }}</td>
-								<td>{{ $row->warna }}</td>
+								<td>
+                                    {{-- kotak kecil --}}
+                                    <span class="badge" style="background-color: {{ $row->warna }}">{{ $row->warna }}</span>
+                                </td>
+                                <td class="text-wrap">
+                                    {{ $row->keterangan }}
+                                </td>
 								<td width="90">
-									<div class="dropdown">
-										<a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-											Actions
-										</a>
-										<ul class="dropdown-menu">
-											<li><a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a></li>
-											<li><a class="dropdown-item" onclick="confirm('Confirm Delete Kategori id {{$row->id}}? \nDeleted Kategoris cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a></li>
-										</ul>
-									</div>
+                                    <a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a>
+                                    <a class="btn btn-sm btn-danger" onclick="confirm('Confirm Delete Kategori id {{$row->id}}? \nDeleted Kategoris cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a>
 								</td>
 							</tr>
 							@empty

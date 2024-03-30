@@ -2,16 +2,19 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
+use App\Models\Supir;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Supir;
 
 class Supirs extends Component
 {
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $nama, $email, $no_telp, $user_id;
+    public $selected_id, $keyWord, $nama, $email, $no_telp, $user_id, $password;
+
+    public $paginate = 10;
 
     public function render()
     {
@@ -22,21 +25,21 @@ class Supirs extends Component
 						->orWhere('email', 'LIKE', $keyWord)
 						->orWhere('no_telp', 'LIKE', $keyWord)
 						->orWhere('user_id', 'LIKE', $keyWord)
-						->paginate(10),
+						->paginate($this->paginate)
         ]);
     }
-	
+
     public function cancel()
     {
         $this->resetInput();
     }
-	
+
     private function resetInput()
-    {		
+    {
 		$this->nama = null;
 		$this->email = null;
 		$this->no_telp = null;
-		$this->user_id = null;
+        $this->password = null;
     }
 
     public function store()
@@ -45,16 +48,24 @@ class Supirs extends Component
 		'nama' => 'required',
 		'email' => 'required',
 		'no_telp' => 'required',
-		'user_id' => 'required',
+        'password' => 'required',
         ]);
 
-        Supir::create([ 
+        // create user
+        $user = User::create([
+            'name' => $this->nama,
+            'email' => $this->email,
+            'password' => Bcrypt($this->password),
+            'role' => 'supir',
+        ]);
+
+        Supir::create([
 			'nama' => $this-> nama,
 			'email' => $this-> email,
 			'no_telp' => $this-> no_telp,
-			'user_id' => $this-> user_id
+			'user_id' => $user->id
         ]);
-        
+
         $this->resetInput();
 		$this->dispatchBrowserEvent('closeModal');
 		session()->flash('message', 'Supir Successfully created.');
@@ -63,7 +74,7 @@ class Supirs extends Component
     public function edit($id)
     {
         $record = Supir::findOrFail($id);
-        $this->selected_id = $id; 
+        $this->selected_id = $id;
 		$this->nama = $record-> nama;
 		$this->email = $record-> email;
 		$this->no_telp = $record-> no_telp;
@@ -73,19 +84,17 @@ class Supirs extends Component
     public function update()
     {
         $this->validate([
-		'nama' => 'required',
-		'email' => 'required',
-		'no_telp' => 'required',
-		'user_id' => 'required',
+            'nama' => 'required',
+            'email' => 'required',
+            'no_telp' => 'required',
         ]);
 
         if ($this->selected_id) {
 			$record = Supir::find($this->selected_id);
-            $record->update([ 
-			'nama' => $this-> nama,
-			'email' => $this-> email,
-			'no_telp' => $this-> no_telp,
-			'user_id' => $this-> user_id
+            $record->update([
+                'nama' => $this-> nama,
+                'email' => $this-> email,
+                'no_telp' => $this-> no_telp,
             ]);
 
             $this->resetInput();

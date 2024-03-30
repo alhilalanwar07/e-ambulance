@@ -9,20 +9,21 @@
            <div class="modal-body">
 				<form>
                     <div class="form-group">
-                        <label for="nama"></label>
+                        <label for="nama">Nama</label>
                         <input wire:model="nama" type="text" class="form-control" id="nama" placeholder="Nama">@error('nama') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="email"></label>
+                        <label for="email">Email</label>
                         <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="no_telp"></label>
+                        <label for="no_telp">No Telp</label>
                         <input wire:model="no_telp" type="text" class="form-control" id="no_telp" placeholder="No Telp">@error('no_telp') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
+                    {{-- password --}}
                     <div class="form-group">
-                        <label for="user_id"></label>
-                        <input wire:model="user_id" type="text" class="form-control" id="user_id" placeholder="User Id">@error('user_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <label for="password">Password</label>
+                        <input wire:model="password" type="text" class="form-control" id="password" placeholder="Password">@error('password') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                 </form>
@@ -47,20 +48,16 @@
                 <form>
 					<input type="hidden" wire:model="selected_id">
                     <div class="form-group">
-                        <label for="nama"></label>
+                        <label for="nama">Nama</label>
                         <input wire:model="nama" type="text" class="form-control" id="nama" placeholder="Nama">@error('nama') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="email"></label>
+                        <label for="email">Email</label>
                         <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="no_telp"></label>
+                        <label for="no_telp">No Telp</label>
                         <input wire:model="no_telp" type="text" class="form-control" id="no_telp" placeholder="No Telp">@error('no_telp') <span class="error text-danger">{{ $message }}</span> @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="user_id"></label>
-                        <input wire:model="user_id" type="text" class="form-control" id="user_id" placeholder="User Id">@error('user_id') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                 </form>

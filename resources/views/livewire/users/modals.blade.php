@@ -17,10 +17,21 @@
                         <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
+                        <label for="password">Password</label>
+                        <input wire:model="password" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="role">Role</label>
                         <select wire:model="role" class="form-control" id="role" placeholder="Role">
                             <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                            {{-- <option value="pelanggan">Pelanggan</option> --}}
+                            <option value="pimpinan">Pimpinan</option>
                         </select>
                     </div>
 

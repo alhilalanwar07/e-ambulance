@@ -13,6 +13,8 @@ class Pesanans extends Component
 	protected $paginationTheme = 'bootstrap';
     public $selected_id, $keyWord, $pelanggan_id, $rumahsakit_id, $supir_id, $kategori_id, $nama_pasien, $alamat_jemput, $longitude_jemput, $latitude_jemput, $no_telp;
 
+    public $paginate = 10;
+
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
@@ -27,17 +29,17 @@ class Pesanans extends Component
 						->orWhere('longitude_jemput', 'LIKE', $keyWord)
 						->orWhere('latitude_jemput', 'LIKE', $keyWord)
 						->orWhere('no_telp', 'LIKE', $keyWord)
-						->paginate(10),
+						->paginate($this->paginate)
         ]);
     }
-	
+
     public function cancel()
     {
         $this->resetInput();
     }
-	
+
     private function resetInput()
-    {		
+    {
 		$this->pelanggan_id = null;
 		$this->rumahsakit_id = null;
 		$this->supir_id = null;
@@ -59,7 +61,7 @@ class Pesanans extends Component
 		'nama_pasien' => 'required',
         ]);
 
-        Pesanan::create([ 
+        Pesanan::create([
 			'pelanggan_id' => $this-> pelanggan_id,
 			'rumahsakit_id' => $this-> rumahsakit_id,
 			'supir_id' => $this-> supir_id,
@@ -70,7 +72,7 @@ class Pesanans extends Component
 			'latitude_jemput' => $this-> latitude_jemput,
 			'no_telp' => $this-> no_telp
         ]);
-        
+
         $this->resetInput();
 		$this->dispatchBrowserEvent('closeModal');
 		session()->flash('message', 'Pesanan Successfully created.');
@@ -79,7 +81,7 @@ class Pesanans extends Component
     public function edit($id)
     {
         $record = Pesanan::findOrFail($id);
-        $this->selected_id = $id; 
+        $this->selected_id = $id;
 		$this->pelanggan_id = $record-> pelanggan_id;
 		$this->rumahsakit_id = $record-> rumahsakit_id;
 		$this->supir_id = $record-> supir_id;
@@ -103,7 +105,7 @@ class Pesanans extends Component
 
         if ($this->selected_id) {
 			$record = Pesanan::find($this->selected_id);
-            $record->update([ 
+            $record->update([
 			'pelanggan_id' => $this-> pelanggan_id,
 			'rumahsakit_id' => $this-> rumahsakit_id,
 			'supir_id' => $this-> supir_id,

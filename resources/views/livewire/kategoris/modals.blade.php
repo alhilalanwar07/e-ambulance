@@ -9,12 +9,17 @@
            <div class="modal-body">
 				<form>
                     <div class="form-group">
-                        <label for="nama"></label>
+                        <label for="nama">Nama Kategori</label>
                         <input wire:model="nama" type="text" class="form-control" id="nama" placeholder="Nama">@error('nama') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="warna"></label>
-                        <input wire:model="warna" type="text" class="form-control" id="warna" placeholder="Warna">@error('warna') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <label for="warna">Kode Warna</label>
+                        <input wire:model="warna" type="text" class="form-control" id="warna" placeholder="ex. #99ccff">@error('warna') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <small class="text-muted text-small">Gunakan kode warna <a href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">disini</a></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea wire:model="keterangan" class="form-control" id="keterangan" rows="3"></textarea>
                     </div>
 
                 </form>
@@ -39,12 +44,18 @@
                 <form>
 					<input type="hidden" wire:model="selected_id">
                     <div class="form-group">
-                        <label for="nama"></label>
+                        <label for="nama">Nama Kategori</label>
                         <input wire:model="nama" type="text" class="form-control" id="nama" placeholder="Nama">@error('nama') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label for="warna"></label>
-                        <input wire:model="warna" type="text" class="form-control" id="warna" placeholder="Warna">@error('warna') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <label for="warna">Kode Warna</label>
+                        <input wire:model="warna" type="text" class="form-control" id="warna" placeholder="ex. #99ccff">@error('warna') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <small class="text-muted text-small">Gunakan kode warna <a href="https://www.w3schools.com/colors/colors_picker.asp" target="_blank">disini</a></small>
+                    </div>
+                    {{-- keterangan --}}
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea wire:model="keterangan" class="form-control" id="keterangan" rows="3"></textarea>
                     </div>
 
                 </form>

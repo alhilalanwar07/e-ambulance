@@ -30,35 +30,29 @@
 								<td>#</td>
 								<th>Nama</th>
 								<th>Alamat</th>
-								<th>No Telp</th>
-								<th>Longitude</th>
-								<th>Latitude</th>
-								<th>Province Id</th>
-								<th>Regency Id</th>
+								<th>Call Center</th>
 								<td>ACTIONS</td>
 							</tr>
 						</thead>
 						<tbody>
 							@forelse($rumahsakits as $row)
-							<tr>
+							<tr class="align-center">
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->nama }}</td>
-								<td>{{ $row->alamat }}</td>
-								<td>{{ $row->no_telp }}</td>
-								<td>{{ $row->longitude }}</td>
-								<td>{{ $row->latitude }}</td>
-								<td>{{ $row->province_id }}</td>
-								<td>{{ $row->regency_id }}</td>
+								<td class="text-nowrap">
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ $row->latitude }},{{ $row->longitude }}" target="_blank"  data-bs-toggle="tooltip" data-bs-placement="top" title="Show on Google Maps">
+                                    {{ $row->alamat }} <br>
+                                    {{ $row->regency->name }}, {{ $row->province->name }}
+                                </a>
+                                </td>
+								<td>
+                                    <a href="tel:{{ $row->no_telp }}" target="_blank"  data-bs-toggle="tooltip" data-bs-placement="top" title="Telepon" class="btn btn-success btn-sm">
+                                    {{ $row->no_telp }}
+                                    </a>
+                                </td>
 								<td width="90">
-									<div class="dropdown">
-										<a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-											Actions
-										</a>
-										<ul class="dropdown-menu">
-											<li><a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a></li>
-											<li><a class="dropdown-item" onclick="confirm('Confirm Delete Rumahsakit id {{$row->id}}? \nDeleted Rumahsakits cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a></li>
-										</ul>
-									</div>
+                                    <a data-bs-toggle="modal" data-bs-target="#updateDataModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Edit </a>
+                                    <a class="btn btn-sm btn-danger" onclick="confirm('Confirm Delete Rumah sakit id {{$row->id}}? \nDeleted Rumahsakits cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Delete </a>
 								</td>
 							</tr>
 							@empty

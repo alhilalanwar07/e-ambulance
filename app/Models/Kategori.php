@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
 	use HasFactory;
-	
+
     public $timestamps = true;
 
     protected $table = 'kategoris';
 
-    protected $fillable = ['nama','warna'];
-	
+    protected $fillable = ['nama','warna', 'keterangan'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -22,5 +22,5 @@ class Kategori extends Model
     {
         return $this->hasMany('App\Models\Pesanan', 'kategori_id', 'id');
     }
-    
+
 }
