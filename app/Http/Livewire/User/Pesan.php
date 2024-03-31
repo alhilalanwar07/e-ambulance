@@ -44,6 +44,11 @@ class Pesan extends Component
 
     public function render()
     {
+        // jika sudah login sebagai user, maka $belumLogin = true
+        if (Auth::check()) {
+            $this->belumLogin = true;
+        };
+
         $totalSteps = 2;
         $stepLabels = [
             '1' => 'Informasi Akun',
@@ -62,13 +67,29 @@ class Pesan extends Component
         ])->layout('layouts.user');
     }
 
-    public function validateStep()
+    public function validateLogin()
     {
         $this->validate([
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
             'no_telp' => 'required',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Email tidak valid',
+            'no_telp.required' => 'No. Telp harus diisi',
+            'password.required' => 'Password harus diisi',
+        ]);
+    }
+
+    public function validateStep()
+    {
+        if (!Auth::check()) {
+            $this->validateLogin();
+        }
+
+        $this->validate([
             'rumahsakit_id' => 'required',
             'kategori_id' => 'required',
             'nama_pasien' => 'required',
@@ -77,11 +98,6 @@ class Pesan extends Component
             'latitude' => 'required',
             'keterangan_pasien' => 'required',
         ], [
-            'name.required' => 'Nama harus diisi',
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Email tidak valid',
-            'password.required' => 'Password harus diisi',
-            'no_telp.required' => 'No. Telp harus diisi',
             'rumahsakit_id.required' => 'Rumah sakit harus diisi',
             'kategori_id.required' => 'Kategori harus diisi',
             'nama_pasien.required' => 'Nama Pasien harus diisi',
@@ -92,6 +108,7 @@ class Pesan extends Component
 
         ]);
     }
+
 
     public function nextStep()
     {
@@ -110,19 +127,24 @@ class Pesan extends Component
         // validate step 2
         $this->validateStep();
 
-        $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Bcrypt($this->password),
-            'role' => 'user',
-        ]);
+        if(!Auth::check()) {
+            $user = User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'password' => Bcrypt($this->password),
+                'role' => 'user',
+            ]);
 
-        $pelanggan = Pelanggan::create([
-            'user_id' => $user->id,
-            'nama' => $this->name,
-            'email' => $this->email,
-            'no_telp' => $this->no_telp,
-        ]);
+            $pelanggan = Pelanggan::create([
+                'user_id' => $user->id,
+                'nama' => $this->name,
+                'email' => $this->email,
+                'no_telp' => $this->no_telp,
+            ]);
+        }else{
+            $user = Auth::user();
+            $pelanggan = Pelanggan::where('user_id', $user->id)->first();
+        }
 
         // cek supir_id yang paling sedikit di tabel pesanan
         $supirId = Pesanan::select('supir_id')
@@ -139,7 +161,7 @@ class Pesan extends Component
             'alamat_jemput' => $this->alamat_jemput,
             'longitude_jemput' => $this->longitude,
             'latitude_jemput' => $this->latitude,
-            'no_telp' => $this->no_telp,
+            'no_telp' => $pelanggan->no_telp,
             'keterangan_pasien' => $this->keterangan_pasien,
             'status' => 'menunggu',
         ]);

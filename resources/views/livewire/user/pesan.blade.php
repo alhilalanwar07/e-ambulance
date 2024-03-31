@@ -1,6 +1,5 @@
 <div>
     @section('title', __('Pesan Ambulance'))
-    <!-- Contact 1 - Bootstrap Brain Component -->
     <section class="bg-light py-3 py-md-5">
         <div class="container">
             <div class="row justify-content-md-center">
@@ -44,12 +43,10 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="row">
-                                {{-- range untuk multi form --}}
-                                {{-- @if($currentStep == 1) --}}
-                                {{-- nama, alamat, telepon, email, jenis kelamin, perusahaan, password --}}
-                                {{-- <form wire:submit.prevent="nextStep"> --}}
                                 <form wire:submit.prevent="submit">
-                                    @csrf <div class="row">
+                                    @csrf
+                                    @guest
+                                    <div class="row">
                                         <div class="col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <div class="form-group mb-2">
                                                 <label for="nama">Nama</label>
@@ -74,11 +71,8 @@
                                                 @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
-                                        {{-- </form> --}}
                                     </div>
-                                    {{-- @elseif($currentStep == 2) --}}
-                                    {{-- pilih produk, harga terbaru, jumlah, alamat pengiriman, lat, long, tanggal_pengantaran --}}
-
+                                    @endguest
                                     <div class="row" wire:ignore.self>
                                         <div class="col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                             <div class="form-group mb-2">
@@ -96,7 +90,7 @@
                                                 <select wire:model="kategori_id" class="form-control" id="kategori_id">
                                                     <option value="">Pilih Kategori</option>
                                                     @foreach($kategoris as $k)
-                                                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                                    <option value="{{ $k->id }}">{{ $k->nama }} ({{ $k->keterangan }})</option>
                                                     @endforeach
                                                 </select>
                                                 @error('kategori_id') <span class="text-danger">{{ $message }}</span> @enderror
@@ -119,7 +113,6 @@
                                                 <textarea wire:model="alamat_jemput" class="form-control" id="alamat_jemput" rows="3" placeholder="Masukkan Alamat Lengkap Pengantaran"></textarea>
                                                 @error('alamat_jemput') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
-                                            {{-- button get long lat --}}
 
                                             <div class="form-group">
                                                 <label>Latitude<span class="form-label">*</span></label>
@@ -149,7 +142,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                {{-- @endif --}}
                             </div>
                         </div>
                         @endif
