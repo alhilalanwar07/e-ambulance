@@ -29,3 +29,4 @@ Route::middleware('pelanggan')->group(function () {
 Route::get('/', Home::class)->name('user.home');
 Route::get('/kontak', Kontak::class)->name('user.kontak');
 Route::get('/pesan-ambulance', Pesan::class)->name('user.pesan');
+Route::get('/pesan-ambulance/{pesanan}', Detail::class)->name('user.detail');
