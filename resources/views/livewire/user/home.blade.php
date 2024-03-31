@@ -25,7 +25,7 @@
 
     <div class="carousel-caption d-none d-md-block text-center align-middle d-flex justify-content-center flex-column">
         {{-- selamat datang di e-ambulance Pusat Layanan Ambulans Puskesmas Tanggetada --}}
-        <h1 class="text-shadow-sm text-outline-dark gradient-text fw-bold">Selamat Datang di e-ambulance <br> Pusat Layanan Ambulance <br> Puskesmas Tanggetada</h1>
+        <h1 class="text-shadow-sm text-outline-dark gradient-text fw-bold">Selamat Datang di website e-ambulance <br> Pusat Layanan Ambulance <br> Puskesmas Tanggetada</h1>
         <br>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-center d-flex justify-content-center">
