@@ -24,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $jumlahSupir = \App\Models\Supir::count();
+        $jumlahPelanggan = \App\Models\Pelanggan::count();
+        $jumlahRumahSakit = \App\Models\Rumahsakit::count();
+        $jumlahPesanan = \App\Models\Pesanan::count();
+        return view('home', compact('jumlahSupir', 'jumlahPelanggan', 'jumlahRumahSakit', 'jumlahPesanan'));
     }
 }
