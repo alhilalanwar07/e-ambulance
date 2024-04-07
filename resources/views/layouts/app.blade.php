@@ -152,10 +152,10 @@
                         {{-- logout --}}
                         <br>
                         <li class="submenu">
-                            <button class="btn btn-danger btn-block" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                            <a href="#" class="btn btn-danger btn-block text-dark" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" style="hover: none; cursor: default;" onmouseover="this.classList.add('text-dark')" onmouseout="this.classList.remove('text-white')">
                                 <i class="feather-log-out"></i> <span>Keluar</span>
-                            </button>
+                            </a>
                         </li>
 
                     </ul>
