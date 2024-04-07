@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Livewire\User\Home;
-use App\Http\Livewire\User\Pesan;
+use App\Http\Controllers\HomeController;
+use App\Http\Livewire\Laporan;
 use App\Http\Livewire\User\Detail;
+use App\Http\Livewire\User\Home;
 use App\Http\Livewire\User\Kontak;
+use App\Http\Livewire\User\Pesan;
 use App\Http\Livewire\User\Riwayat;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+
 
 //Route Hooks - Do not delete//
 Auth::routes();
@@ -19,6 +21,7 @@ Route::middleware('admin')->group(function () {
     Route::view('supirs', 'livewire.supirs.index')->middleware('auth');
     Route::view('pelanggans', 'livewire.pelanggans.index')->middleware('auth');
     Route::view('users', 'livewire.users.index')->middleware('auth');
+    Route::get('/laporan', Laporan::class)->name('laporan');
 });
 // middleware pelanggan
 Route::middleware('pelanggan')->group(function () {
