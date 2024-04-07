@@ -20,15 +20,18 @@ class Pesanans extends Component
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.pesanans.view', [
             'pesanans' => Pesanan::latest()
-						->orWhere('pelanggan_id', 'LIKE', $keyWord)
-						->orWhere('rumahsakit_id', 'LIKE', $keyWord)
-						->orWhere('supir_id', 'LIKE', $keyWord)
-						->orWhere('kategori_id', 'LIKE', $keyWord)
-						->orWhere('nama_pasien', 'LIKE', $keyWord)
-						->orWhere('alamat_jemput', 'LIKE', $keyWord)
-						->orWhere('longitude_jemput', 'LIKE', $keyWord)
-						->orWhere('latitude_jemput', 'LIKE', $keyWord)
-						->orWhere('no_telp', 'LIKE', $keyWord)
+                        ->join('pelanggans', 'pelanggans.id', '=', 'pesanans.pelanggan_id')
+                        ->join('rumahsakits', 'rumahsakits.id', '=', 'pesanans.rumahsakit_id')
+                        ->join('supirs', 'supirs.id', '=', 'pesanans.supir_id')
+                        ->join('kategoris', 'kategoris.id', '=', 'pesanans.kategori_id')
+                        ->where(function ($query) use ($keyWord) {
+                            $query->where('pelanggans.nama', 'like', $keyWord)
+                                ->orWhere('rumahsakits.nama', 'like', $keyWord)
+                                ->orWhere('supirs.nama', 'like', $keyWord)
+                                ->orWhere('kategoris.nama', 'like', $keyWord);
+                        })
+                        ->select('pesanans.*', 'pelanggans.nama as pelanggans', 'rumahsakits.nama as rumahsakits', 'supirs.nama as supirs', 'kategoris.nama as kategoris', 'kategoris.warna as warna')
+                        ->orderBy('pesanans.id', 'desc')
 						->paginate($this->paginate)
         ]);
     }
@@ -128,5 +131,53 @@ class Pesanans extends Component
         if ($id) {
             Pesanan::where('id', $id)->delete();
         }
+    }
+
+    // konfirmasi
+    public function konfirmasi($id)
+    {
+        // update status
+        Pesanan::where('id', $id)->update([
+            'status' => 'dikonfirmasi'
+        ]);
+
+        session()->flash('message', 'Pesanan Successfully updated.');
+    }
+
+    // batalkan
+    public function batalkan($id)
+    {
+        // udoate status
+        Pesanan::where('id', $id)->update([
+            'status' => 'dibatalkan'
+        ]);
+
+        session()->flash('message', 'Pesanan Successfully updated.');
+
+    }
+
+    // diproses
+    public function proses($id)
+    {
+
+        // selesai
+        // update status
+        Pesanan::where('id', $id)->update([
+            'status' => 'diproses'
+        ]);
+
+        session()->flash('message', 'Pesanan Successfully updated.');
+    }
+
+    // selesai
+    public function selesai($id)
+    {
+
+        // update status
+        Pesanan::where('id', $id)->update([
+            'status' => 'selesai'
+        ]);
+
+        session()->flash('message', 'Pesanan Successfully updated.');
     }
 }
