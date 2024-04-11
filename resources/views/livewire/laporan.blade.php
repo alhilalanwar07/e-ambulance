@@ -1,8 +1,8 @@
 <div>
     @section('title', __('Laporan'))
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card vh-100">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">

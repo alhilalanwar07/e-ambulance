@@ -24,12 +24,14 @@
                     </div>
                     {{-- alert --}}
                     @if (session('message'))
-                    <div class="bg-success border rounded shadow-sm overflow-hidden mb-2" wire:poll.7s>
+                    <div class="bg-success border rounded shadow-sm overflow-hidden mb-2" wire:poll.5s>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('message') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
+                    </div>
                     @endif
+
                     @forelse($pesanans->sortByDesc('created_at') as $row)
                     <div class="bg-white border rounded shadow-sm overflow-hidden mb-2 mt-2">
                         <div class="px-3 py-3 pt-3 pb-0 d-flex justify-content-between">

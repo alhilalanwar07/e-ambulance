@@ -141,7 +141,7 @@ class Pesan extends Component
                 'email' => $this->email,
                 'no_telp' => $this->no_telp,
             ]);
-        }else{
+        } else {
             $user = Auth::user();
             $pelanggan = Pelanggan::where('user_id', $user->id)->first();
         }
@@ -167,8 +167,9 @@ class Pesan extends Component
         ]);
 
         // Lakukan autentikasi pengguna setelah berhasil register
-        Auth::login($user);
-
+        if(!Auth::check()) {
+            Auth::login($user);
+        }
         // Redirect ke halaman setelah login
         return redirect()->to('/riwayat')->with('message', 'Pesanan ambulan anda sedang diproses.');
 
