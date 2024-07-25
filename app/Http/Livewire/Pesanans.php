@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Pesanan;
+use App\Models\Pesanan as ModelPesanan;
 
 class Pesanans extends Component
 {
@@ -17,22 +17,13 @@ class Pesanans extends Component
 
     public function render()
     {
+
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.pesanans.view', [
-            'pesanans' => Pesanan::latest()
-                        ->join('pelanggans', 'pelanggans.id', '=', 'pesanans.pelanggan_id')
-                        ->join('rumahsakits', 'rumahsakits.id', '=', 'pesanans.rumahsakit_id')
-                        ->join('supirs', 'supirs.id', '=', 'pesanans.supir_id')
-                        ->join('kategoris', 'kategoris.id', '=', 'pesanans.kategori_id')
-                        ->where(function ($query) use ($keyWord) {
-                            $query->where('pelanggans.nama', 'like', $keyWord)
-                                ->orWhere('rumahsakits.nama', 'like', $keyWord)
-                                ->orWhere('supirs.nama', 'like', $keyWord)
-                                ->orWhere('kategoris.nama', 'like', $keyWord);
-                        })
-                        ->select('pesanans.*', 'pelanggans.nama as pelanggans', 'rumahsakits.nama as rumahsakits', 'supirs.nama as supirs', 'kategoris.nama as kategoris', 'kategoris.warna as warna')
-                        ->orderBy('pesanans.id', 'desc')
-						->paginate($this->paginate)
+            'pesanans' => ModelPesanan::with('pelanggan', 'rumahsakit', 'supir', 'kategori')
+            ->orWhere('nama_pasien', 'LIKE', $keyWord)
+            ->paginate($this->paginate),
+
         ]);
     }
 
@@ -64,7 +55,7 @@ class Pesanans extends Component
 		'nama_pasien' => 'required',
         ]);
 
-        Pesanan::create([
+        ModelPesanan::create([
 			'pelanggan_id' => $this-> pelanggan_id,
 			'rumahsakit_id' => $this-> rumahsakit_id,
 			'supir_id' => $this-> supir_id,
@@ -83,7 +74,7 @@ class Pesanans extends Component
 
     public function edit($id)
     {
-        $record = Pesanan::findOrFail($id);
+        $record = ModelPesanan::findOrFail($id);
         $this->selected_id = $id;
 		$this->pelanggan_id = $record-> pelanggan_id;
 		$this->rumahsakit_id = $record-> rumahsakit_id;
@@ -107,7 +98,7 @@ class Pesanans extends Component
         ]);
 
         if ($this->selected_id) {
-			$record = Pesanan::find($this->selected_id);
+			$record = ModelPesanan::find($this->selected_id);
             $record->update([
 			'pelanggan_id' => $this-> pelanggan_id,
 			'rumahsakit_id' => $this-> rumahsakit_id,
@@ -129,7 +120,7 @@ class Pesanans extends Component
     public function destroy($id)
     {
         if ($id) {
-            Pesanan::where('id', $id)->delete();
+            ModelPesanan::where('id', $id)->delete();
         }
     }
 
@@ -137,7 +128,7 @@ class Pesanans extends Component
     public function konfirmasi($id)
     {
         // update status
-        Pesanan::where('id', $id)->update([
+        ModelPesanan::where('id', $id)->update([
             'status' => 'dikonfirmasi'
         ]);
 
@@ -148,7 +139,7 @@ class Pesanans extends Component
     public function batalkan($id)
     {
         // udoate status
-        Pesanan::where('id', $id)->update([
+        ModelPesanan::where('id', $id)->update([
             'status' => 'dibatalkan'
         ]);
 
@@ -162,7 +153,7 @@ class Pesanans extends Component
 
         // selesai
         // update status
-        Pesanan::where('id', $id)->update([
+        ModelPesanan::where('id', $id)->update([
             'status' => 'diproses'
         ]);
 
@@ -174,7 +165,7 @@ class Pesanans extends Component
     {
 
         // update status
-        Pesanan::where('id', $id)->update([
+        ModelPesanan::where('id', $id)->update([
             'status' => 'selesai'
         ]);
 

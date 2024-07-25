@@ -47,11 +47,11 @@
                                 <td>:<a href="https://www.google.com/maps/search/?api=1&query={{ $row->longitude_jemput }},{{ $row->latitude_jemput }}" target="_blank">
                                     <i class="fas fa-map-marker-alt"></i> {{ ucwords($row->alamat_jemput) }}
                                 </a> <br>
-                                : {{ $row->rumahsakits }} <br>
-                                : {{ $row->supirs }}
+                                : {{ $row->rumahsakit->nama }} <br>
+                                : {{ $row->supir->nama }}
                                 </td>
 								<td>
-                                    <span class="badge" style="background-color: {{ $row->warna }}">{{ $row->kategoris }}</span>
+                                    <span class="badge" style="background-color: {{ $row->kategori->warna }}">{{ $row->kategori->nama }}</span>
                                 </td>
 								<td>{{ strtoupper($row->nama_pasien) }}</td>
 								<td> <a href="tel:{{ $row->no_telp }}"><i class="fa fa-phone"></i> {{ $row->no_telp }}</a></td>

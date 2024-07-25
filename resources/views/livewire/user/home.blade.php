@@ -2,6 +2,13 @@
     {{-- title --}}
     @section('title', __('Beranda'))
     {{-- slider --}}
+    <style>
+    .carousel-inner img {
+        height: 80vh; /* Atur tinggi tetap */
+        width: 100%;   /* Lebar otomatis untuk mempertahankan proporsi */
+        object-fit: cover; /* Menyesuaikan gambar agar sesuai dengan ukuran tanpa mengubah proporsi */
+    }
+    </style>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -10,19 +17,18 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://source.unsplash.com/600x200?pharmacy" class="d-block w-300 h-300 d-sm-none" alt="...">
-            <img src="https://source.unsplash.com/1200x400?pharmacy" class="d-none d-sm-block w-100 h-100" alt="...">
+            <img src="{{ asset('assets/img/slider-1.jpg') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ asset('assets/img/slider-1.jpg') }}" class="d-none d-sm-block" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://source.unsplash.com/600x200?ambulance" class="d-block w-300 h-300 d-sm-none" alt="...">
-            <img src="https://source.unsplash.com/1200x400?ambulance" class="d-none d-sm-block w-100 h-100" alt="...">
+            <img src="{{ asset('assets/img/slider-2.webp') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ asset('assets/img/slider-2.webp') }}" class="d-none d-sm-block" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://source.unsplash.com/600x200?medicine" class="d-block w-300 h-300 d-sm-none" alt="...">
-            <img src="https://source.unsplash.com/1200x400?medicine" class="d-none d-sm-block w-100 h-100" alt="...">
+            <img src="{{ asset('assets/img/slider-3.jpg') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ asset('assets/img/slider-3.jpg') }}" class="d-none d-sm-block" alt="...">
         </div>
     </div>
-
     <div class="carousel-caption d-none d-md-block text-center align-middle d-flex justify-content-center flex-column">
         {{-- selamat datang di e-ambulance Pusat Layanan Ambulans Puskesmas Tanggetada --}}
         <h1 class="text-shadow-sm text-outline-dark gradient-text fw-bold">Selamat Datang di website e-ambulance <br> Pusat Layanan Ambulance <br> Puskesmas Tanggetada</h1>
