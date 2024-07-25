@@ -21,8 +21,9 @@ class Pesanans extends Component
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.pesanans.view', [
             'pesanans' => ModelPesanan::with('pelanggan', 'rumahsakit', 'supir', 'kategori')
-            ->orWhere('nama_pasien', 'LIKE', $keyWord)
-            ->paginate($this->paginate),
+                    ->orWhere('nama_pasien', 'LIKE', $keyWord)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate($this->paginate),
 
         ]);
     }
