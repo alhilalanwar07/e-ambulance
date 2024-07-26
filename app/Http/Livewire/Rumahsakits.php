@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Pesanan;
 use App\Models\Regency;
 use Livewire\Component;
 use App\Models\Province;
@@ -114,13 +115,13 @@ class Rumahsakits extends Component
         if ($this->selected_id) {
             $record = Rumahsakit::find($this->selected_id);
             $record->update([
-            'nama' => $this-> nama,
-            'alamat' => $this-> alamat,
-            'no_telp' => $this-> no_telp,
-            'longitude' => $this-> longitude,
-            'latitude' => $this-> latitude,
-            'province_id' => $this-> province_id,
-            'regency_id' => $this-> regency_id
+                'nama' => $this-> nama,
+                'alamat' => $this-> alamat,
+                'no_telp' => $this-> no_telp,
+                'longitude' => $this-> longitude,
+                'latitude' => $this-> latitude,
+                'province_id' => $this-> province_id,
+                'regency_id' => $this-> regency_id
             ]);
 
             $this->resetInput();
@@ -131,7 +132,12 @@ class Rumahsakits extends Component
 
     public function destroy($id)
     {
-        if ($id) {
+        // cek rumahsakit id di tabel pesanan
+        $pesanan = Pesanan::where('rumahsakit_id', $id)->first();
+        if ($pesanan) {
+            session()->flash('message', 'Rumah sakit yang pernah dipesan tidak bisa di hapus, silahkan hapus pesanan.');
+            return;
+        } else {
             Rumahsakit::where('id', $id)->delete();
         }
     }

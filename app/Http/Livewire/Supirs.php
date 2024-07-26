@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Models\Supir;
+use App\Models\Pesanan;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -105,8 +106,13 @@ class Supirs extends Component
 
     public function destroy($id)
     {
-        if ($id) {
-            Supir::where('id', $id)->delete();
+        // cek supir id di tabel pesanan
+        $supir = Pesanan::where('supir_id', $id)->first();
+        if ($supir) {
+            session()->flash('message', 'Supir yang pernah dipesan tidak bisa di hapus, silahkan hapus pesanan.');
+            return;
+        } else {
+            Supir::find($id)->delete();
         }
     }
 }

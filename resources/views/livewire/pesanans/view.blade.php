@@ -44,7 +44,7 @@
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $row->pelanggans }}</td>
 								<td>Dari <br> Ke <br> Supir</td>
-                                <td>:<a href="https://www.google.com/maps/search/?api=1&query={{ $row->longitude_jemput }},{{ $row->latitude_jemput }}" target="_blank">
+                                <td>:<a href="https://www.google.com/maps/search/?api=1&query={{ $row->latitude_jemput }},{{ $row->longitude_jemput }}" target="_blank">
                                     <i class="fas fa-map-marker-alt"></i> {{ ucwords($row->alamat_jemput) }}
                                 </a> <br>
                                 : {{ $row->rumahsakit->nama }} <br>

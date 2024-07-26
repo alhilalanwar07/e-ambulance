@@ -17,16 +17,16 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{{ asset('assets/img/slider-1.jpg') }}" class="d-block d-sm-none" alt="...">
-            <img src="{{ asset('assets/img/slider-1.jpg') }}" class="d-none d-sm-block" alt="...">
+            <img src="{{ url('assets/img/slider-1.jpg') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ url('assets/img/slider-1.jpg') }}" class="d-none d-sm-block" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('assets/img/slider-2.webp') }}" class="d-block d-sm-none" alt="...">
-            <img src="{{ asset('assets/img/slider-2.webp') }}" class="d-none d-sm-block" alt="...">
+            <img src="{{ url('assets/img/slider-2.webp') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ url('assets/img/slider-2.webp') }}" class="d-none d-sm-block" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('assets/img/slider-3.jpg') }}" class="d-block d-sm-none" alt="...">
-            <img src="{{ asset('assets/img/slider-3.jpg') }}" class="d-none d-sm-block" alt="...">
+            <img src="{{ url('assets/img/slider-3.jpg') }}" class="d-block d-sm-none" alt="...">
+            <img src="{{ url('assets/img/slider-3.jpg') }}" class="d-none d-sm-block" alt="...">
         </div>
     </div>
     <div class="carousel-caption d-none d-md-block text-center align-middle d-flex justify-content-center flex-column">

@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Pesanan;
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Kategori;
+use Livewire\WithPagination;
 
 class Kategoris extends Component
 {
@@ -93,11 +94,13 @@ class Kategoris extends Component
 
     public function destroy($id)
     {
-        if ($id) {
+        $pesanan = Pesanan::where('kategori_id', $id)->first();
+        if ($pesanan) {
+            session()->flash('message', 'Kategori yang sudah digunakan tidak bisa di hapus.');
+            return;
+        } else {
             Kategori::where('id', $id)->delete();
         }
-
-        session()->flash('message', 'Kategori Successfully deleted.');
 
     }
 }

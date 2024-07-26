@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use App\Models\Pesanan;
 use Livewire\Component;
 use App\Models\Pelanggan;
 use Livewire\WithPagination;
@@ -103,7 +104,12 @@ class Pelanggans extends Component
 
     public function destroy($id)
     {
-        if ($id) {
+        // cek rumahsakit id di tabel pesanan
+        $pesanan = Pesanan::where('pelanggan_id', $id)->first();
+        if ($pesanan) {
+            session()->flash('message', 'Pelanggan yang pernah dipesan tidak bisa di hapus, silahkan hapus pesanan.');
+            return;
+        } else {
             Pelanggan::where('id', $id)->delete();
         }
     }

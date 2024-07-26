@@ -42,6 +42,13 @@ class Pesan extends Component
     public $longLat = false;
 
 
+    public function mount()
+    {
+        // supir yang di tampilkan adalah supir yang tidak memiliki pesanan yang belum selesai
+        $this->supir_id = Pesanan::where('status', '!=', 'selesai')->value('supir_id');
+    }
+
+
     public function render()
     {
         // jika sudah login sebagai user, maka $belumLogin = true
@@ -62,7 +69,9 @@ class Pesan extends Component
             'stepLabels' => $stepLabels,
             'currentStep' => $currentStep,
             'rumahsakits' => Rumahsakit::all(),
-            'supirs' => Supir::all(),
+            'supirs' => Supir::doesntHave('pesanans', 'and', function ($query) {
+                    $query->where('status', '!=', 'selesai');
+                })->get(),
             'kategoris' => Kategori::all(),
         ])->layout('layouts.user');
     }
