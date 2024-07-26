@@ -52,7 +52,7 @@
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-center d-flex justify-content-center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-danger">PESAN AMBULANCE</button>
+                    <a href="/pesan-ambulance" type="button" class="btn btn-danger">PESAN AMBULANCE</a>
                 </div>
             </div>
         </div>
