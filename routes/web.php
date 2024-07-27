@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 // middleware admin
 Route::middleware('admin')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::view('pesanans', 'livewire.pesanans.index')->middleware('auth');
     Route::view('rumahsakits', 'livewire.rumahsakits.index')->middleware('auth');
     Route::view('kategoris', 'livewire.kategoris.index')->middleware('auth');
     Route::view('supirs', 'livewire.supirs.index')->middleware('auth');
@@ -23,6 +21,14 @@ Route::middleware('admin')->group(function () {
     Route::view('users', 'livewire.users.index')->middleware('auth');
     Route::get('/laporan', Laporan::class)->name('laporan');
 });
+
+Route::middleware('supir')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::view('pesanans', 'livewire.pesanans.index');
+});
+
+
+
 // middleware pelanggan
 Route::middleware('pelanggan')->group(function () {
     Route::get('/riwayat', Riwayat::class)->name('user.riwayat');

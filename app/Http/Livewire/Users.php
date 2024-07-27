@@ -58,7 +58,7 @@ class Users extends Component
             'name' => $this-> name,
             'email' => $this-> email,
             'role' => $this-> role,
-            'password' => $this-> password,
+            'password' => bcrypt($this-> password),
         ]);
 
         $this->resetInput();
